@@ -1,6 +1,6 @@
 using UnityEngine;
 using MyBox;
-using System;
+using Cinemachine;
 
 public class CombatManager : MonoBehaviour
 {
@@ -16,7 +16,12 @@ public class CombatManager : MonoBehaviour
     public Player Player => _player;
     public Enemy Enemy => _enemy;
     public CameraManager Camera { get; private set; }
-    
+
+    [Foldout("End Game Stuff", true)]
+    [SerializeField]
+    private CinemachineVirtualCamera _endCam;
+    [SerializeField]
+    private GameObject _endPanel;
     private void OnEnable()
     {
         CharacterHealth.OnDeathAction += CheckWhoWon;
@@ -43,7 +48,28 @@ public class CombatManager : MonoBehaviour
 
     private void CheckWhoWon( BowController character )
     {
-        
+        SetState( new EndGameState ( this ));
+        _player.CanShoot = false;
+        _enemy.CanShoot = false;
+
+        if( _endCam != null )
+        {
+            _endCam.enabled = true;
+        }
+        if( _endPanel != null )
+        {
+            _endPanel.SetActive( true );
+        }
+
+        //See who died
+        if( character == _enemy )
+        {
+            _endCam.m_Follow = _player.transform;
+        }
+        else
+        {
+            _endCam.m_Follow = _enemy.transform;
+        }
     }
 
     private void OnDisable()
