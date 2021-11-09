@@ -4,11 +4,14 @@ using System;
 
 public class CharacterHealth : MonoBehaviour
 {
+
+    [SerializeField] private BowController Owner;
     [SerializeField] private int _currenthealth;
     [SerializeField] private int _maxHealth = 15;
 
     [SerializeField] private CharacterCollider[] _cols;
 
+    public static Action<BowController> OnDeathAction;
     private void OnEnable()
     {
         foreach ( var c in _cols )
@@ -37,6 +40,11 @@ public class CharacterHealth : MonoBehaviour
     private void ManageHealth( int dmg )
     {
         _currenthealth -= dmg;
+
+        if( _currenthealth <= 0 )
+        {
+            OnDeathAction?.Invoke( Owner );
+        }
     }
     private void OnDisable()
     {

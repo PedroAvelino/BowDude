@@ -1,4 +1,5 @@
 using Cinemachine;
+using MyBox;
 using UnityEngine;
 
 public class BowController : MonoBehaviour
@@ -9,6 +10,7 @@ public class BowController : MonoBehaviour
 
     protected Camera cam;
 
+
     [SerializeField] private CinemachineVirtualCamera _cnCam;
     [SerializeField] protected LineRenderer line;
     [SerializeField] protected GameObject arrow;
@@ -16,6 +18,10 @@ public class BowController : MonoBehaviour
     public CinemachineVirtualCamera CNCam => _cnCam;
 
     public bool CanShoot;
+
+    [Foldout("UI Stuff", true)]
+    [SerializeField] public MagnitudeText magnitudeText;
+    [SerializeField] public AngleText angleText;
 
     private void Awake()
     {

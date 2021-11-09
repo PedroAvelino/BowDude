@@ -1,5 +1,3 @@
-using System;
-
 public class PlayerState : BaseState
 {
     public PlayerState(CombatManager manager) : base(manager)

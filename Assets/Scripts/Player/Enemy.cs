@@ -1,6 +1,5 @@
 using UnityEngine;
 using MyBox;
-using System;
 
 public class Enemy : BowController
 {
@@ -16,9 +15,6 @@ public class Enemy : BowController
 
     [SerializeField] [ReadOnly]
     private bool _hasHitPlayer;
-
-
-
     public bool HasHitPlayer => _hasHitPlayer;
     public float BestForceUsed => _bestForceUsed;
     public Vector2 BestArrowPosition => _bestArrowPosition;
